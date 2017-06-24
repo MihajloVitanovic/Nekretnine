@@ -276,16 +276,16 @@ public class MainActivity extends AppCompatActivity  {
                     }
                 });
 
+                Button cancel = (Button) dialog.findViewById(R.id.cancel);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
                 dialog.show();
 
-                break;
-            /*case R.id.listmenu_about:
-
-                AlertDialog alertDialog = new AboutDialog(this).prepareDialog();
-                alertDialog.show();
-                break;*/
-            case R.id.listmenu_preferences:
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 break;
         }
 

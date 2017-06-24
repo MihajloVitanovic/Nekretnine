@@ -299,10 +299,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     //Metoda koja komunicira sa bazom podataka
     public DatabaseHelper getDatabaseHelper() {
         if (databaseHelper == null) {
