@@ -16,7 +16,7 @@
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:icon="@mipmap/ic_launcher"
-            android:label="Home">
+            android:label="Nekretnine">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

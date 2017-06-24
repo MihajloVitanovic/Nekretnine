@@ -5,10 +5,14 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
@@ -23,22 +27,51 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.mvit.mihajlo.nekretnine.R;
+import com.mvit.mihajlo.nekretnine.adapters.DrawerListAdapter;
+import com.mvit.mihajlo.nekretnine.adapters.NavigationItem;
 import com.mvit.mihajlo.nekretnine.db.DatabaseHelper;
 import com.mvit.mihajlo.nekretnine.db.model.Nekretnina;
 import com.mvit.mihajlo.nekretnine.dialogs.AboutDialog;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by androiddevelopment on 24.6.17..
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
+
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItemFromDrawer(position);
+        }
+    }
+
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private ActionBarDrawerToggle drawerToggle;
+    private RelativeLayout drawerPane;
+    private CharSequence drawerTitle;
+    private CharSequence title;
+
+    private ArrayList<NavigationItem> navigationItems = new ArrayList<NavigationItem>();
+
+    private AlertDialog dialog;
+
+    private boolean landscapeMode = false;
+    private boolean listShown = false;
+    private boolean detailShown = false;
+
+    private int productId = 0;
 
     private DatabaseHelper databaseHelper;
     private SharedPreferences prefs;
@@ -51,12 +84,59 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if(toolbar != null) {
             setSupportActionBar(toolbar);
+        }*/
+
+        // Draws navigation items
+        navigationItems.add(new NavigationItem(getString(R.string.drawer_home), getString(R.string.drawer_home_long), R.drawable.ic_action_product));
+        navigationItems.add(new NavigationItem(getString(R.string.drawer_settings), getString(R.string.drawer_Settings_long), R.drawable.ic_action_settings));
+        title = drawerTitle = getTitle();
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerList = (ListView) findViewById(R.id.navList);
+
+        // Populate the Navigtion Drawer with options
+        drawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
+        DrawerListAdapter adapter = new DrawerListAdapter(this, navigationItems);
+
+        // set a custom shadow that overlays the main content when the drawer opens
+        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        drawerList.setAdapter(adapter);
+
+        // Enable ActionBar app icon to behave as action to toggle nav drawer
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.show();
         }
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                toolbar,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                getSupportActionBar().setTitle(title);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle(drawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+
+
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -65,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             List<Nekretnina> list = getDatabaseHelper().getNekretninaDao().queryForAll();
 
-            ListAdapter adapter = new ArrayAdapter<>(MainActivity.this, R.layout.list_item, list);
-            listView.setAdapter(adapter);
+            ListAdapter adapter2 = new ArrayAdapter<>(MainActivity.this, R.layout.list_item, list);
+            listView.setAdapter(adapter2);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -211,6 +291,42 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    @Override
+    public void setTitle(CharSequence title) {
+        getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private void selectItemFromDrawer(int position) {
+        if (position == 0){
+        } else if (position == 1){
+            Intent settings = new Intent(MainActivity.this,SettingsActivity.class);
+            startActivity(settings);
+        }
+
+        drawerList.setItemChecked(position, true);
+        setTitle(navigationItems.get(position).getTitle());
+        drawerLayout.closeDrawer(drawerPane);
+    }
+
+
+
 
     //Metoda koja komunicira sa bazom podataka
     public DatabaseHelper getDatabaseHelper() {
