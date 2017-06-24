@@ -26,6 +26,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,72 +41,91 @@
             android:text="Name"/>
 
         <EditText
-            android:id="@+id/actor_name"
+            android:id="@+id/nekretnina_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="5dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Biography"/>
+            android:text="Summary"/>
 
         <EditText
-            android:id="@+id/actor_biography"
+            android:id="@+id/nekretnina_biography"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="5dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rating"/>
-
-        <RatingBar
-            android:id="@+id/acrtor_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1.0"
-            android:rating="0.0"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Birth Date"/>
+            android:text="Image"/>
 
         <EditText
-            android:id="@+id/actor_birth"
+            android:id="@+id/nekretnina_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adress"/>
+
+        <EditText
+            android:id="@+id/nekretnina_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"/>
+
+        <EditText
+            android:id="@+id/nekretnina_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Size"/>
+
+        <EditText
+            android:id="@+id/nekretnina_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No. of Rooms"/>
+
+        <EditText
+            android:id="@+id/nekretnina_rooms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price"/>
+
+        <EditText
+            android:id="@+id/nekretnina_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/actor_movies"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+</ScrollView>
 
 </LinearLayout>

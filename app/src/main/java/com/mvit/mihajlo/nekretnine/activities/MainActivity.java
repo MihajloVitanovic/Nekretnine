@@ -140,16 +140,34 @@ public class MainActivity extends AppCompatActivity {
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EditText name = (EditText) dialog.findViewById(R.id.actor_name);
-                        EditText bio = (EditText) dialog.findViewById(R.id.actor_biography);
-                        RatingBar rating = (RatingBar) dialog.findViewById(R.id.acrtor_rating);
-                        EditText birth = (EditText) dialog.findViewById(R.id.actor_birth);
+                        EditText name = (EditText) dialog.findViewById(R.id.nekretnina_name);
+                        EditText bio = (EditText) dialog.findViewById(R.id.nekretnina_biography);
+
+                        EditText image = (EditText) dialog.findViewById(R.id.nekretnina_image);
+                        EditText address = (EditText) dialog.findViewById(R.id.nekretnina_address);
+
+                        EditText phone = (EditText) dialog.findViewById(R.id.nekretnina_phone);
+                        EditText size = (EditText) dialog.findViewById(R.id.nekretnina_size);
+
+                        EditText rooms = (EditText) dialog.findViewById(R.id.nekretnina_rooms);
+                        EditText price = (EditText) dialog.findViewById(R.id.nekretnina_price);
+                        //RatingBar rating = (RatingBar) dialog.findViewById(R.id.acrtor_rating);
+                        //EditText birth = (EditText) dialog.findViewById(R.id.actor_birth);
 
                         Nekretnina a = new Nekretnina();
                         a.setmName(name.getText().toString());
                         a.setmBiography(bio.getText().toString());
-                        a.setmBirth(birth.getText().toString());
-                        a.setmScore(rating.getRating());
+
+                        a.setmImage(image.getText().toString());
+                        a.setmAddress(address.getText().toString());
+
+                        a.setmPhone(phone.getText().toString());
+                        a.setmSize(size.getText().toString());
+
+                        a.setmRooms(rooms.getText().toString());
+                        a.setmPrice(price.getText().toString());
+                        //a.setmBirth(birth.getText().toString());
+                        //a.setmScore(rating.getRating());
 
                         try {
                             getDatabaseHelper().getNekretninaDao().create(a);

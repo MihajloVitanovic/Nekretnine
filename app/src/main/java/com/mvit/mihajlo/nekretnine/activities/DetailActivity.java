@@ -41,8 +41,15 @@ public class DetailActivity extends AppCompatActivity {
 
     private EditText name;
     private EditText bio;
-    private EditText birth;
-    private RatingBar rating;
+
+    private EditText image;
+    private EditText address;
+
+    private EditText phone;
+    private EditText size;
+
+    private EditText rooms;
+    private EditText price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +67,11 @@ public class DetailActivity extends AppCompatActivity {
         try {
             a = getDatabaseHelper().getNekretninaDao().queryForId(key);
 
-            name = (EditText) findViewById(R.id.actor_name);
-            bio = (EditText) findViewById(R.id.actor_biography);
-            birth = (EditText) findViewById(R.id.actor_birth);
-            rating = (RatingBar) findViewById(R.id.acrtor_rating);
+            name = (EditText) findViewById(R.id.nekretnina_name);
+            bio = (EditText) findViewById(R.id.nekretnina_biography);
 
             name.setText(a.getmName());
             bio.setText(a.getmBiography());
-            birth.setText(a.getmBirth());
-            rating.setRating(a.getmScore());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,9 +117,19 @@ public class DetailActivity extends AppCompatActivity {
             case R.id.detailmenu_edit:
                 //POKUPITE INFORMACIJE SA EDIT POLJA
                 a.setmName(name.getText().toString());
-                a.setmBirth(birth.getText().toString());
                 a.setmBiography(bio.getText().toString());
-                a.setmScore(rating.getRating());
+
+                a.setmImage(image.getText().toString());
+                a.setmAddress(address.getText().toString());
+
+                a.setmPhone(phone.getText().toString());
+                a.setmSize(size.getText().toString());
+
+                a.setmRooms(rooms.getText().toString());
+                a.setmPrice(price.getText().toString());
+
+                //a.setmBirth(birth.getText().toString());
+                //a.setmScore(rating.getRating());
 
                 try {
                     getDatabaseHelper().getNekretninaDao().update(a);
