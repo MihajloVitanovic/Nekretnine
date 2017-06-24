@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/detailmenu_add_movie"
-        android:title="@string/fragment_detal_action_add"
-        android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="ifRoom" />
-
     <item android:id="@+id/detailmenu_edit"
         android:title="Edit"
         android:icon="@android:drawable/ic_menu_edit"

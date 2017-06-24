@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/add_new_actor"
+    <item android:id="@+id/add_new_realestate"
         android:title="@string/fragment_detal_action_add"
         android:icon="@android:drawable/ic_menu_add"
         app:showAsAction="ifRoom" />

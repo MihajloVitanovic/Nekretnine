@@ -16,7 +16,7 @@
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:icon="@mipmap/ic_launcher"
-            android:label="ActorsFinal">
+            android:label="Home">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,13 +28,13 @@
         <activity
             android:name=".activities.DetailActivity"
             android:icon="@mipmap/ic_launcher"
-            android:label="Actor Detail"
+            android:label="RealEstate Detail"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activities.SettingsActivity"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/activity_settings_name"
+            android:label="Settings"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".activities.MainActivity"/>
 
